@@ -22,9 +22,14 @@ stream = audio.open(
 try:
     while True:
         data = stream.read(CHUNK, exception_on_overflow=False)
-        # Convert audio bytes into 16-bit integers using NumPy
         audio_data = np.frombuffer(data, dtype=np.int16)
-        print("Data size:", len(audio_data))
+        
+        # Convert to float32 to avoid int16 overflow during squaring
+        audio_float = audio_data.astype(np.float32)
+        # Root Mean Square (RMS) represents average signal energy/loudness
+        rms_volume = np.sqrt(np.mean(audio_float ** 2))
+        
+        print("RMS Volume:", rms_volume)
 except KeyboardInterrupt:
     pass
 finally:
