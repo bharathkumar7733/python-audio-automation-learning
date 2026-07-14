@@ -49,6 +49,16 @@ try:
             else:
                 print(f"Clap {clap_count} detected.")
                 
+        window_is_active = clap_count > 0
+        if window_is_active and current_time - window_start_time >= WINDOW_DURATION:
+            print(f"Window finished. Total claps: {clap_count}")
+            if clap_count == 1:
+                print("Single clap action!")
+            elif clap_count == 2:
+                print("Double clap action!")
+            clap_count = 0
+            window_start_time = 0
+            
         previous_volume = rms_volume
 except KeyboardInterrupt:
     pass
