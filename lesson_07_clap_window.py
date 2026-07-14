@@ -42,8 +42,13 @@ try:
         
         if clap_detected:
             last_clap_time = current_time
-            print("Clap detected!")
-            
+            clap_count += 1
+            if clap_count == 1:
+                window_start_time = current_time
+                print("First clap! Starting 5-second window.")
+            else:
+                print(f"Clap {clap_count} detected.")
+                
         previous_volume = rms_volume
 except KeyboardInterrupt:
     pass
